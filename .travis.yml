@@ -15,6 +15,12 @@ script:
 after_success:
 - pip freeze
 - echo Uploading code coverage data ...; coveralls
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+    
 deploy:
   provider: heroku
   api_key:
