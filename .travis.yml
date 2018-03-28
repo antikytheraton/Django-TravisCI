@@ -14,7 +14,7 @@ script:
 - python manage.py test
 after_success:
 - pip freeze
-- echo Uploading code coverage data ...; coveralls
+- coverage
 
 notifications:
   email:
