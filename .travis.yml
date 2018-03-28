@@ -1,43 +1,23 @@
-#   A basic travis.yml boilerplate for Django projects
-#
-#   The set-up assumes a postgreSQL database.
-#
-#   Replace the following variables in the code:
-# * your_project_settings
-# * your_github_username
-# * your_repo
-
 language: python
-
 python:
-  - 3.6
-
+- 3.6
 services: postgresql
-
 env:
   global:
-    - DJANGO=2.0.3
-    - PIP_USE_MIRRORS=true
-
-# before_install:
-#   - export DJANGO_SETTINGS_MODULE=your_project.settings
-#   - export PYTHONPATH=$HOME/builds/your_github_username/your_repo
-#   - export PIP_USE_MIRRORS=true
-
+  - DJANGO=2.0.3
+  - PIP_USE_MIRRORS=true
 install:
-  - pip install -r requirements.txt
-  # - pip install django==$DJANGO --quiet
-  # - pip install psycopg2 --quiet
-  - pip install coveralls radon
-
-# before_script:
-#   - psql -c "CREATE DATABASE mydb;" -U postgres
-
+- pip install -r requirements.txt
+- pip install coveralls radon
 script:
-  # - python manage.py syncdb --noinput
-  - python manage.py migrate
-  - python manage.py test
-
+- python manage.py migrate
+- python manage.py test
 after_success:
-  - pip freeze
-  - echo Uploading code coverage data ...; coveralls
+- pip freeze
+- echo Uploading code coverage data ...; coveralls
+deploy:
+  provider: heroku
+  api_key:
+    secure: roqePzEYElQqIMuwoCGZkcIAwu9Tdj+oubItgSNwEuenD+SPI3ODa4XADU2bmjdTxIJQq/84ltk07bgNWT5u4/+z1c6HewJ72OrBj3R5lopnbL+VB73jSnK3PPzsYdYeU1P5sQCCqT1Z1B3BiupezPps77IW8G+tDB/025faho6J24a09L8tZt3dfLpYqxQu7D7naM6J/u3oQ6Pt18hQ8RZLpN/WiQ+xtxdbeT1vGsE3EEhzKck8q7th4OKxspvZpbPDLwtPvIpmmV+ZYnpJupyTv89XGdsNJQ6HdvJJc+1ckEqVvAWSuNdQA67I6DYt6yVtSnp0O296hDSa9+wxImyxwhYDxebrMAlieUtSL/O/pME0FUdVgyBv3tY6jtpeAM7XbxYyWT6C4cM5Nf2dOJkOh9rqdDapk9+DEhaHQeHrAHjM9KK+1kOtsd0DmHyaje22VqZQWv/M00zI+CVd5UmZ4QHTYpTQjwpttDyinuM3xjIKuJiJ1k8t5UmJFsZgfDCsP8gEUGp6T602BByPOxY7XjbrRjjERAnIy8vdaWBlPnvCwdTRLUy/+UdNRM/gDaljWnSKgsAgbcB6k6bdB5GGwVOS8yeZkGE57Lt6apBsUK20FPlEEdW2ssnDXNCfk2pHE41zZkYZ4Q7U2PR9FJNPyptXBdL/TBE0QjjsU6w=
+    app: django-travis
+    
