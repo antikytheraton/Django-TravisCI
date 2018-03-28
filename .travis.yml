@@ -15,7 +15,9 @@ python:
 services: postgresql
 
 env:
-  - DJANGO=2.0.3
+  global:
+    - DJANGO=2.0.3
+    - PIP_USE_MIRRORS=true
 
 # before_install:
 #   - export DJANGO_SETTINGS_MODULE=your_project.settings
@@ -39,5 +41,3 @@ script:
 after_success:
   - pip freeze
   - echo Uploading code coverage data ...; coveralls
-  - echo Code complexity scores:; radon cc --min B ../pony-forum
-  
